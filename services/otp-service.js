@@ -16,7 +16,7 @@ class OtpService {
 
    async sendBySms(phone, otp) {
       return await twilio.messages.create({
-         to: phone,
+         to: `+${phone}`,
          from: process.env.SMS_FROM_NUMBER,
          body: `Your codershouse OTP is ${otp}`,
       });
