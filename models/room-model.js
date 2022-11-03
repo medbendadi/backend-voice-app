@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const roomSchema = new Schema({
    topic: { type: String, required: true },
    roomType: { type: String, required: true },
+   password: { type: String, required: false },
    ownerId: { type: Schema.Types.ObjectId, ref: 'user' },
    speakers: {
       type: [
@@ -16,6 +17,7 @@ const roomSchema = new Schema({
       ],
       required: false,
    },
+
    // admins: {
    //    type: [
    //       {

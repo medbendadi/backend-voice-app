@@ -5,6 +5,7 @@ class RoomDto {
    speakers;
    ownerId;
    createdAt;
+   password;
 
    constructor(room) {
       this.id = room._id
@@ -12,6 +13,7 @@ class RoomDto {
       this.roomType = room.roomType
       this.ownerId = room.ownerId
       this.speakers = room.speakers
+      this.password = room.password ? room.password : null
       this.createdAt = room.createdAt
    }
 }

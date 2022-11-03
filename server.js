@@ -102,6 +102,38 @@ io.on('connection', (socket) => {
          }
       });
    });
+   socket.on(ACTIONS.HAND, ({ roomId, userId }) => {
+      const clients = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
+      clients.forEach((clientId) => {
+         io.to(clientId).emit(ACTIONS.HAND, {
+            peerId: socket.id,
+            userId,
+         });
+      });
+   });
+
+   socket.on(ACTIONS.UNHAND, ({ roomId, userId }) => {
+      const clients = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
+      clients.forEach((clientId) => {
+         io.to(clientId).emit(ACTIONS.UNHAND, {
+            peerId: socket.id,
+            userId,
+         });
+      });
+   });
+
+   socket.on(ACTIONS.HAND_INFO, ({ userId, roomId, handOn }) => {
+      const clients = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
+      clients.forEach((clientId) => {
+         if (clientId !== socket.id) {
+            console.log('hand info');
+            io.to(clientId).emit(ACTIONS.HAND_INFO, {
+               userId,
+               handOn,
+            });
+         }
+      });
+   });
 
    const leaveRoom = () => {
       const { rooms } = socket;

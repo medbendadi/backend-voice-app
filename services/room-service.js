@@ -10,6 +10,19 @@ class RoomService {
          roomType,
          speakers: [ownerId],
       })
+      console.log(room);
+      return room
+   }
+
+   async createPrivate(payload) {
+      const { topic, roomType, ownerId, password } = payload
+      const room = await roomModel.create({
+         topic,
+         ownerId,
+         roomType,
+         password,
+         speakers: [ownerId],
+      })
       return room
    }
 
@@ -25,6 +38,17 @@ class RoomService {
       const room = await roomModel.findOne({ _id: roomId })
       return room;
    }
+
+   async getPrivateRoom(roomId, password) {
+      const room = await roomModel.findOne({ _id: roomId })
+      if (room.password === password) {
+         return room;
+      } else {
+         return []
+      }
+
+   }
+
    async closeRoom(roomId) {
       const room = await roomModel.deleteOne({ _id: roomId })
       return room;
