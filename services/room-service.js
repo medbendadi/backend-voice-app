@@ -10,7 +10,6 @@ class RoomService {
          roomType,
          speakers: [ownerId],
       })
-      console.log(room);
       return room
    }
 
