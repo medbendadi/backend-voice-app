@@ -27,6 +27,18 @@ app.use('/storage', express.static('storage'));
 const PORT = process.env.PORT || 5000;
 DbConnect();
 app.use(express.json({ limit: '8mb' }));
+app.use(
+   session({
+      secret: process.env.SESSION_SECRET || 'Super Secret (change it)',
+      resave: true,
+      saveUninitialized: false,
+      cookie: {
+         sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
+         secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+      }
+   })
+);
+
 app.use(function (req, res, next) {
    res.header('Access-Control-Allow-Origin', req.headers.origin);
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
