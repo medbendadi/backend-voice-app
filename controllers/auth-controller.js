@@ -66,15 +66,16 @@ class AuthController {
             console.log(err);
             res.status(500).json({ message: 'Db error' });
          }
-      }
-      try {
-         user = await userService.findUser({ phone });
-         if (!user) {
-            user = await userService.createUser({ phone });
+      } else {
+         try {
+            user = await userService.findUser({ phone });
+            if (!user) {
+               user = await userService.createUser({ phone });
+            }
+         } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: 'Db error' });
          }
-      } catch (err) {
-         console.log(err);
-         res.status(500).json({ message: 'Db error' });
       }
 
       const { accessToken, refreshToken } = tokenService.generateTokens({
