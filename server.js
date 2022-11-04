@@ -27,7 +27,15 @@ app.use('/storage', express.static('storage'));
 const PORT = process.env.PORT || 5000;
 DbConnect();
 app.use(express.json({ limit: '8mb' }));
+app.use(function (req, res, next) {
+   res.header('Access-Control-Allow-Origin', req.headers.origin);
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   next();
+});
+
 app.use(router);
+
+
 
 app.get('/', (req, res) => {
    res.send('Hello from express Js');
