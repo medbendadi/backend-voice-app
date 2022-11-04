@@ -6,6 +6,7 @@ const DbConnect = require('./database');
 const router = require('./routes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
 
 const ACTIONS = require('./actions');
 
@@ -28,7 +29,7 @@ const PORT = process.env.PORT || 5000;
 DbConnect();
 app.use(express.json({ limit: '8mb' }));
 app.use(
-   session({
+   expressSession({
       secret: process.env.SESSION_SECRET || 'Super Secret (change it)',
       resave: true,
       saveUninitialized: false,
