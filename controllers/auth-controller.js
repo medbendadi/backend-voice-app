@@ -86,13 +86,11 @@ class AuthController {
 
       res.cookie('refreshToken', refreshToken, {
          maxAge: 1000 * 60 * 60 * 24 * 30,
-         httpOnly: true,
          SameSite: 'None'
       });
 
       res.cookie('accessToken', accessToken, {
          maxAge: 1000 * 60 * 60 * 24 * 30,
-         httpOnly: true,
          SameSite: 'None'
       });
 
@@ -143,13 +141,11 @@ class AuthController {
       // put in cookie
       res.cookie('refreshToken', refreshToken, {
          maxAge: 1000 * 60 * 60 * 24 * 30,
-         httpOnly: true,
          SameSite: 'None'
       });
 
       res.cookie('accessToken', accessToken, {
          maxAge: 1000 * 60 * 60 * 24 * 30,
-         httpOnly: true,
          SameSite: 'None'
       });
       // response
